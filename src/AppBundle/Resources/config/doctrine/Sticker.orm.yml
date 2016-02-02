@@ -1,0 +1,23 @@
+AppBundle\Entity\Sticker:
+    type: entity
+    table: sticker
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        view:
+            type: integer
+            length: 1
+        colors:
+            type: string
+        message:
+            type: string
+            length: 120
+        username:
+            type: string
+            length: 60
+    oneToOne:
+        donation:
+            targetEntity: AppBundle\Entity\Donation
+            mappeBy: sticker

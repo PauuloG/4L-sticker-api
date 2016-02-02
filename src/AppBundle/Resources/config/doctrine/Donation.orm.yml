@@ -1,0 +1,19 @@
+AppBundle\Entity\Donation:
+    type: entity
+    table: donation
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        amount:
+            type: float
+        paypalTransactionId:
+            type: string
+    oneToOne:
+        sticker:
+            targetEntity: AppBundle\Entity\Sticker
+            inversedBy: donation
+            joinColumn:
+                name: sticker_id
+                referencedColumnName: id

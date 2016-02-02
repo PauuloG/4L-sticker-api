@@ -1,0 +1,119 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
+
+/**
+ * @ExclusionPolicy("all")
+ */
+
+class Donation
+{
+    /**
+     * @var integer
+     * @Expose
+     */
+    private $id;
+
+    /**
+     * @var float
+     */
+    private $amount;
+
+    /**
+     * @var string
+     */
+    private $paypalTransactionId;
+
+    /**
+     * @var \AppBundle\Entity\Sticker
+     * @Expose
+     */
+    private $sticker;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param float $amount
+     * @return Donation
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Set paypalTransactionId
+     *
+     * @param string $paypalTransactionId
+     * @return Donation
+     */
+    public function setPaypalTransactionId($paypalTransactionId)
+    {
+        $this->paypalTransactionId = $paypalTransactionId;
+
+        return $this;
+    }
+
+    /**
+     * Get paypalTransactionId
+     *
+     * @return string
+     */
+    public function getPaypalTransactionId()
+    {
+        return $this->paypalTransactionId;
+    }
+
+    /**
+     * Set sticker
+     *
+     * @param \AppBundle\Entity\Sticker $sticker
+     * @return Donation
+     */
+    public function setSticker(\AppBundle\Entity\Sticker $sticker = null)
+    {
+        $this->sticker = $sticker;
+
+        return $this;
+    }
+
+    /**
+     * Get sticker
+     *
+     * @return \AppBundle\Entity\Sticker
+     */
+    public function getSticker()
+    {
+        return $this->sticker;
+    }
+}

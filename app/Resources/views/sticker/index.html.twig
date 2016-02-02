@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sticker list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>View</th>
+                <th>Colors</th>
+                <th>Message</th>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sticker in stickers %}
+            <tr>
+                <td><a href="{{ path('sticker_show', { 'id': sticker.id }) }}">{{ sticker.id }}</a></td>
+                <td>{{ sticker.view }}</td>
+                <td>{{ sticker.colors }}</td>
+                <td>{{ sticker.message }}</td>
+                <td>{{ sticker.username }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sticker_show', { 'id': sticker.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sticker_edit', { 'id': sticker.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sticker_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

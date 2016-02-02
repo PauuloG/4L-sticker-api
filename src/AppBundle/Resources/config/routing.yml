@@ -1,0 +1,7 @@
+app_sticker:
+    resource: "@AppBundle/Resources/config/routing/sticker.php"
+    prefix:   /sticker
+
+app_donation:
+    resource: "@AppBundle/Resources/config/routing/donation.php"
+    prefix:   /donation
