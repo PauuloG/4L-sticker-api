@@ -56,4 +56,22 @@ class DonationController extends Controller
         ));
     }
 
+    /**
+     * Mark Donation as processed (=printed)
+     *
+    */
+    public function processedAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $donation = $em->getRepository('AppBundle:Donation')->findById($id);
+
+        $donation->setProcessed(1);
+        $em->persist($donation);
+        $em->flush();
+
+        return new JsonResponse(array(
+            "id" => $donation->getId(),
+            'status' => 1));
+    }
+
 }
