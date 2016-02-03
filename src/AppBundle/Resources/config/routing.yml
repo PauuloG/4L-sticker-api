@@ -5,3 +5,8 @@ app_sticker:
 app_donation:
     resource: "@AppBundle/Resources/config/routing/donation.php"
     prefix:   /donation
+
+root :
+    path : /
+    defaults: {_controller: AppBundle:Default:greet}
+
