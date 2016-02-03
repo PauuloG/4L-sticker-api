@@ -1,68 +1,38 @@
-Symfony Standard Edition
-========================
+## 4L-Sticker Server-side Application
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+### Project
+This server-side symfony application is part of a global project. This project includes a front-end website and mobile client.
+The goal is to raise money for a good cause, ["Les Enfants du Désert"](http://http://enfantsdudesert.org/), through their famous [4L Trophy](http://www.4ltrophy.com/) Event.
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Through this project, we aim at raising awareness as well as implicating people in this process. 
 
-What's inside?
---------------
+People are invited to customize a little sticker on the website, and can make a donation to have it printed and put one of the 4L.
 
-The Symfony Standard Edition is configured with the following defaults:
+The donation is made with Paypal, then the server processes the donation and sends it to the mobile client which is used by the car occupants. Each day at night camp, they print the stickers of the day and stick them on the car.
 
-  * An AppBundle you can use to start coding;
+### Limitations
+This project was made in two weeks by a team of 5 people. 
 
-  * Twig as the only configured template engine;
+Our main limitation was the poor network quality expected during the race. 
 
-  * Doctrine ORM/DBAL;
+To avoid long loading times or no loading at all, we decided to generate all images on the client side of the application (on the mobile app in particular, since the network limitation is applied to this support only).
 
-  * Swiftmailer;
+The server only processes json encoded data, to help both clients create, display, and print stickers from SVG drawings.
 
-  * Annotations enabled for everything.
+### Technical Specifications
 
-It comes pre-configured with the following bundles:
+The server-side of this application runs on Symfony 2.8.*; To install the project, just run
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+```
+composer install
+```
+Then 
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+```
+php app/console doctrine:schema:create
+```
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
+That's it, you're good to go!
 
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.8/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/book/doctrine.html
-[8]:  https://symfony.com/doc/2.8/book/templating.html
-[9]:  https://symfony.com/doc/2.8/book/security.html
-[10]: https://symfony.com/doc/2.8/cookbook/email.html
-[11]: https://symfony.com/doc/2.8/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/2.8/bundles/SensioGeneratorBundle/index.html
+####To Complete
++ A Better Security Implementation would be good on mobile client side.
