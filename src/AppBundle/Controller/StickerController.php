@@ -62,7 +62,7 @@ class StickerController extends Controller
 
         return new JsonResponse(array(
             'status' => 0,
-            'errors' => $serializer->serialize($form, 'json');
+            'errors' => $serializer->serialize($form, 'json')));
 
     }
 
