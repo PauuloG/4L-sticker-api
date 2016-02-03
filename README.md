@@ -1,4 +1,4 @@
-## 4L-Sticker Server-side Application
+# 4L-Sticker Server-side Application
 
 ### Project
 This server-side symfony application is part of a global project. This project includes a front-end website and mobile client.
@@ -36,3 +36,14 @@ That's it, you're good to go!
 
 ####To Complete
 + A Better Security Implementation would be good on mobile client side.
+
+####Credits
+**Benjamin Chareyron** - *Project Manager, Social Media Strategist*
+
+**Paul Gabriel** - *Back-End & Mobile Developer*
+
+**Theo Kleman** - *Front-End Developer & Designer*
+
+**Matthieu Tourdes** - *Motion Designer & 3D Modelist*
+
+**William Praszenzinski** - *Front-End Developer & Designer*
