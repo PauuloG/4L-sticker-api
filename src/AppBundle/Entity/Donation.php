@@ -14,10 +14,8 @@ use JMS\Serializer\Annotation\VirtualProperty;
  */
 
 class Donation
-{
-    /**
+{    /**
      * @var integer
-     * @Expose
      */
     private $id;
 
@@ -32,16 +30,24 @@ class Donation
     private $paypalTransactionId;
 
     /**
+     * @var \DateTime
+     */
+    private $creation_date;
+
+    /**
      * @var \AppBundle\Entity\Sticker
-     * @Expose
      */
     private $sticker;
 
+    public function __construct()
+    {
+        $this->setCreationDate();
+    }
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -64,7 +70,7 @@ class Donation
     /**
      * Get amount
      *
-     * @return float
+     * @return float 
      */
     public function getAmount()
     {
@@ -87,11 +93,34 @@ class Donation
     /**
      * Get paypalTransactionId
      *
-     * @return string
+     * @return string 
      */
     public function getPaypalTransactionId()
     {
         return $this->paypalTransactionId;
+    }
+
+    /**
+     * Set creation_date
+     *
+     * @param \DateTime $creationDate
+     * @return Donation
+     */
+    public function setCreationDate()
+    {
+        $this->creation_date = new \DateTime('now');
+
+        return $this;
+    }
+
+    /**
+     * Get creation_date
+     *
+     * @return \DateTime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creation_date;
     }
 
     /**
@@ -110,7 +139,7 @@ class Donation
     /**
      * Get sticker
      *
-     * @return \AppBundle\Entity\Sticker
+     * @return \AppBundle\Entity\Sticker 
      */
     public function getSticker()
     {

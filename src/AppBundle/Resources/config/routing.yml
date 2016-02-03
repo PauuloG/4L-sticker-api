@@ -1,5 +1,5 @@
 app_sticker:
-    resource: "@AppBundle/Resources/config/routing/sticker.php"
+    resource: "@AppBundle/Resources/config/routing/sticker.yml"
     prefix:   /sticker
 
 app_donation:

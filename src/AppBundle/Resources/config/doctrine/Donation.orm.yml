@@ -10,6 +10,8 @@ AppBundle\Entity\Donation:
             type: float
         paypalTransactionId:
             type: string
+        creation_date:
+            type: date
     oneToOne:
         sticker:
             targetEntity: AppBundle\Entity\Sticker

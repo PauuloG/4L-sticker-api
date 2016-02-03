@@ -8,9 +8,12 @@
             <tr>
                 <th>Id</th>
                 <th>View</th>
-                <th>Colors</th>
+                <th>Color_0</th>
+                <th>Color_1</th>
+                <th>Color_2</th>
                 <th>Message</th>
                 <th>Username</th>
+                <th>Creation_date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,9 +22,12 @@
             <tr>
                 <td><a href="{{ path('sticker_show', { 'id': sticker.id }) }}">{{ sticker.id }}</a></td>
                 <td>{{ sticker.view }}</td>
-                <td>{{ sticker.colors }}</td>
+                <td>{{ sticker.color0 }}</td>
+                <td>{{ sticker.color1 }}</td>
+                <td>{{ sticker.color2 }}</td>
                 <td>{{ sticker.message }}</td>
                 <td>{{ sticker.username }}</td>
+                <td>{% if sticker.creationdate %}{{ sticker.creationdate|date('Y-m-d') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>

@@ -29,7 +29,9 @@ class StickerController extends Controller
 
         $stickers = $serializer->serialize($stickers, 'json');
 
-        return new Response($stickers);
+        $response =  new Response($stickers);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -40,30 +42,61 @@ class StickerController extends Controller
     {
         $serializer = $this->get('jms_serializer');
         $sticker = new Sticker();
+
+        //return new Response($serializer->serialize($request->getParameterBag(), 'json'));
         $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
         // $form->handleRequest($request);
-        $form->submit($request);
+        $form->submit($request->request->all());
+
+        if ($form->isSubmitted() ) {//&& $form->isValid()
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($sticker);
+            $em->flush();
+
+            $response = new JsonResponse(array(
+                'status' => 1,
+                'id' => $sticker->getId(),
+            );
+
+            return $response;
+        } else {
+
+            $response = new JsonResponse(array(
+                'status' => 0,
+                'errors' => $form->getErrorsAsString()));
+            return $response;
+
+        }
+
+        $response = new JsonResponse(array(
+            'status' => 2,
+            'errors' => $form->getErrorsAsString()));
+        return $response;
+
+    }
+
+    /**
+     * Creates a new Sticker entity.
+     *
+     */
+    public function newBackAction(Request $request)
+    {
+        $sticker = new Sticker();
+        $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($sticker);
             $em->flush();
 
-            return new JsonResponse(array(
-                'status' => 1,
-                'id' => $sticker->getId()));
-        } else {
-
-            return new JsonResponse(array(
-                'status' => 0,
-                'errors' => $form->getErrorsAsString()));
-
+            return $this->redirectToRoute('sticker_show', array('id' => $sticker->getId()));
         }
 
-        return new JsonResponse(array(
-            'status' => 0,
-            'errors' => $serializer->serialize($form, 'json')));
-
+        return $this->render('sticker/new.html.twig', array(
+            'sticker' => $sticker,
+            'form' => $form->createView(),
+        ));
     }
-
 }

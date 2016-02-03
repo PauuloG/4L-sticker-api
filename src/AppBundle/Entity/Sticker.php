@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Type;
 
 
 /**
@@ -15,9 +16,9 @@ use JMS\Serializer\Annotation\VirtualProperty;
 
 
 class Sticker
-{
-    /**
+{    /**
      * @var integer
+     * @Expose
      */
     private $id;
 
@@ -31,7 +32,19 @@ class Sticker
      * @var string
      * @Expose
      */
-    private $colors;
+    private $color_0;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $color_1;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $color_2;
 
     /**
      * @var string
@@ -46,10 +59,22 @@ class Sticker
     private $username;
 
     /**
+     * @var \DateTime
+     * @Expose
+     * @Type("DateTime<'d/m/Y'>")
+     */
+    private $creation_date;
+
+    /**
      * @var \AppBundle\Entity\Donation
+     * @Expose
      */
     private $donation;
 
+    public function __construct()
+    {
+        $this->setCreationDate();
+    }
 
     /**
      * Get id
@@ -85,26 +110,72 @@ class Sticker
     }
 
     /**
-     * Set colors
+     * Set color_0
      *
-     * @param string $colors
+     * @param string $color0
      * @return Sticker
      */
-    public function setColors($colors)
+    public function setColor0($color0)
     {
-        $this->colors = $colors;
+        $this->color_0 = $color0;
 
         return $this;
     }
 
     /**
-     * Get colors
+     * Get color_0
      *
      * @return string 
      */
-    public function getColors()
+    public function getColor0()
     {
-        return $this->colors;
+        return $this->color_0;
+    }
+
+    /**
+     * Set color_1
+     *
+     * @param string $color1
+     * @return Sticker
+     */
+    public function setColor1($color1)
+    {
+        $this->color_1 = $color1;
+
+        return $this;
+    }
+
+    /**
+     * Get color_1
+     *
+     * @return string 
+     */
+    public function getColor1()
+    {
+        return $this->color_1;
+    }
+
+    /**
+     * Set color_2
+     *
+     * @param string $color2
+     * @return Sticker
+     */
+    public function setColor2($color2)
+    {
+        $this->color_2 = $color2;
+
+        return $this;
+    }
+
+    /**
+     * Get color_2
+     *
+     * @return string 
+     */
+    public function getColor2()
+    {
+        return $this->color_2;
     }
 
     /**
@@ -151,6 +222,29 @@ class Sticker
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set creation_date
+     *
+     * @param \DateTime $creationDate
+     * @return Sticker
+     */
+    public function setCreationDate()
+    {
+        $this->creation_date = new \DateTime('now');
+
+        return $this;
+    }
+
+    /**
+     * Get creation_date
+     *
+     * @return \DateTime 
+     */
+    public function getCreationDate()
+    {
+        return $this->creation_date->format('d/m/Y');
     }
 
     /**

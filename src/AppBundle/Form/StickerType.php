@@ -15,14 +15,15 @@ class StickerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('view')
-            ->add('colors')
-            ->add('message')
-            ->add('username')
-            ->add('donation')
+            ->add('view', 'integer')
+            ->add('color_0', 'text')
+            ->add('color_1', 'text')
+            ->add('color_2', 'text')
+            ->add('message', 'text')
+            ->add('username', 'text')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

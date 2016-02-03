@@ -21,6 +21,8 @@ AppBundle\Entity\Sticker:
         username:
             type: string
             length: 60
+        creation_date:
+            type: date
     oneToOne:
         donation:
             targetEntity: AppBundle\Entity\Donation

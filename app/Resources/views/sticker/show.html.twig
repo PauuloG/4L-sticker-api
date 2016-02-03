@@ -14,8 +14,16 @@
                 <td>{{ sticker.view }}</td>
             </tr>
             <tr>
-                <th>Colors</th>
-                <td>{{ sticker.colors }}</td>
+                <th>Color_0</th>
+                <td>{{ sticker.color0 }}</td>
+            </tr>
+            <tr>
+                <th>Color_1</th>
+                <td>{{ sticker.color1 }}</td>
+            </tr>
+            <tr>
+                <th>Color_2</th>
+                <td>{{ sticker.color2 }}</td>
             </tr>
             <tr>
                 <th>Message</th>
@@ -24,6 +32,10 @@
             <tr>
                 <th>Username</th>
                 <td>{{ sticker.username }}</td>
+            </tr>
+            <tr>
+                <th>Creation_date</th>
+                <td>{% if sticker.creationdate %}{{ sticker.creationdate|date('Y-m-d') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
