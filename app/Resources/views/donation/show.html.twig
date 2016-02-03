@@ -17,6 +17,14 @@
                 <th>Paypaltransactionid</th>
                 <td>{{ donation.paypalTransactionId }}</td>
             </tr>
+            <tr>
+                <th>Creation_date</th>
+                <td>{% if donation.creationdate %}{{ donation.creationdate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Printed</th>
+                <td>{{ donation.printed }}</td>
+            </tr>
         </tbody>
     </table>
 

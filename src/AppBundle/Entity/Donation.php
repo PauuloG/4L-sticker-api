@@ -7,7 +7,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
-
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ExclusionPolicy("all")
@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 class Donation
 {    /**
      * @var integer
+     * @Expose
      */
     private $id;
 
@@ -31,23 +32,33 @@ class Donation
 
     /**
      * @var \DateTime
+     * @Expose
+     * @Type("DateTime<'d/m/Y'>")
      */
     private $creation_date;
 
     /**
      * @var \AppBundle\Entity\Sticker
+     * @Expose
      */
     private $sticker;
+
+    /**
+     * @var integer
+     */
+    private $printed;
+
 
     public function __construct()
     {
         $this->setCreationDate();
+        $this->setPrinted(0);
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -70,7 +81,7 @@ class Donation
     /**
      * Get amount
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -93,7 +104,7 @@ class Donation
     /**
      * Get paypalTransactionId
      *
-     * @return string 
+     * @return string
      */
     public function getPaypalTransactionId()
     {
@@ -116,7 +127,7 @@ class Donation
     /**
      * Get creation_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationDate()
     {
@@ -139,10 +150,35 @@ class Donation
     /**
      * Get sticker
      *
-     * @return \AppBundle\Entity\Sticker 
+     * @return \AppBundle\Entity\Sticker
      */
     public function getSticker()
     {
         return $this->sticker;
+    }
+
+
+
+    /**
+     * Set printed
+     *
+     * @param integer $printed
+     * @return Donation
+     */
+    public function setPrinted($printed)
+    {
+        $this->printed = $printed;
+
+        return $this;
+    }
+
+    /**
+     * Get printed
+     *
+     * @return integer
+     */
+    public function getPrinted()
+    {
+        return $this->printed;
     }
 }

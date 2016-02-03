@@ -12,6 +12,9 @@ AppBundle\Entity\Donation:
             type: string
         creation_date:
             type: date
+        printed:
+            type: integer
+            length: 1
     oneToOne:
         sticker:
             targetEntity: AppBundle\Entity\Sticker

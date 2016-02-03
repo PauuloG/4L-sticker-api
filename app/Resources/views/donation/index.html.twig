@@ -9,6 +9,8 @@
                 <th>Id</th>
                 <th>Amount</th>
                 <th>Paypaltransactionid</th>
+                <th>Creation_date</th>
+                <th>Printed</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,6 +20,8 @@
                 <td><a href="{{ path('donation_show', { 'id': donation.id }) }}">{{ donation.id }}</a></td>
                 <td>{{ donation.amount }}</td>
                 <td>{{ donation.paypalTransactionId }}</td>
+                <td>{% if donation.creationdate %}{{ donation.creationdate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ donation.printed }}</td>
                 <td>
                     <ul>
                         <li>

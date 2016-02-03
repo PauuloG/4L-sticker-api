@@ -3,7 +3,7 @@ app_sticker:
     prefix:   /sticker
 
 app_donation:
-    resource: "@AppBundle/Resources/config/routing/donation.php"
+    resource: "@AppBundle/Resources/config/routing/donation.yml"
     prefix:   /donation
 
 root :

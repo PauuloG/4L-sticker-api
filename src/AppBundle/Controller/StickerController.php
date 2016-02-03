@@ -74,28 +74,4 @@ class StickerController extends Controller
         return $response;
 
     }
-
-    /**
-     * Creates a new Sticker entity.
-     *
-     */
-    public function newBackAction(Request $request)
-    {
-        $sticker = new Sticker();
-        $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($sticker);
-            $em->flush();
-
-            return $this->redirectToRoute('sticker_show', array('id' => $sticker->getId()));
-        }
-
-        return $this->render('sticker/new.html.twig', array(
-            'sticker' => $sticker,
-            'form' => $form->createView(),
-        ));
-    }
 }

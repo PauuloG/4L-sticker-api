@@ -25,11 +25,14 @@ class DonationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $serializer = $this->get('jms_serializer');
 
-        $donations = $em->getRepository('AppBundle:Donation')->findAll();
+        $donations = $em->getRepository('AppBundle:Donation')->findBy(['printed' => 0]);
 
         $donations = $serializer->serialize($donations, 'json');
 
-        return new Response($donations);
+        $response =  new Response($donations);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
     }
 
     /**
@@ -38,42 +41,53 @@ class DonationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $serializer = $this->get('jms_serializer');
         $donation = new Donation();
+
         $form = $this->createForm('AppBundle\Form\DonationType', $donation);
-        //$form->handleRequest($request);
-        $form->submit($request);
+        $form->submit($request->request->all());
 
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {//&& $form->isValid()
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($donation);
             $em->flush();
 
-            return $this->redirectToRoute('donation_list');
+            $response = new Response($serializer->serialize(array(
+                'status' => 1,
+                'donation' => $donation), 'json'));
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        } else {
+
+            $response = new JsonResponse(array(
+                'status' => 0,
+                'errors' => $form->getErrorsAsString()));
+            return $response;
+
         }
 
-        return $this->render('donation/new.html.twig', array(
-            'donation' => $donation,
-            'form' => $form->createView(),
-        ));
+        $response = new JsonResponse(array(
+            'status' => 2,
+            'errors' => $form->getErrorsAsString()));
+        return $response;
     }
 
     /**
-     * Mark Donation as processed (=printed)
+     * Displays a form to edit an existing Donation entity.
      *
-    */
-    public function processedAction(Request $request, $id)
+     */
+    public function printedAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $donation = $em->getRepository('AppBundle:Donation')->findById($id);
+        $donation = $em->getRepository('AppBundle:Donation')->findOneById($id);
 
-        $donation->setProcessed(1);
+        $donation->setPrinted(1);
         $em->persist($donation);
         $em->flush();
 
-        return new JsonResponse(array(
-            "id" => $donation->getId(),
-            'status' => 1));
+        return new JsonResponse(array('status' => 1));
     }
 
 }
