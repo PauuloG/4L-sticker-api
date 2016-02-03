@@ -9,7 +9,11 @@ AppBundle\Entity\Sticker:
         view:
             type: integer
             length: 1
-        colors:
+        color_0:
+            type: string
+        color_1:
+            type: string
+        color_2:
             type: string
         message:
             type: string

@@ -38,9 +38,11 @@ class StickerController extends Controller
      */
     public function newAction(Request $request)
     {
+        $serializer = $this->get('jms_serializer');
         $sticker = new Sticker();
         $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
-        $form->handleRequest($request);
+        // $form->handleRequest($request);
+        $form->submit($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -48,13 +50,20 @@ class StickerController extends Controller
             $em->flush();
 
             return new JsonResponse(array(
+                'status' => 1,
                 'id' => $sticker->getId()));
+        } else {
+
+            return new JsonResponse(array(
+                'status' => 0,
+                'errors' => $form->getErrorsAsString()));
+
         }
 
-        return $this->render('sticker/new.html.twig', array(
-            'sticker' => $sticker,
-            'form' => $form->createView(),
-        ));
+        return new JsonResponse(array(
+            'status' => 0,
+            'errors' => $serializer->serialize($form, 'json');
+
     }
 
 }

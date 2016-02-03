@@ -11,6 +11,6 @@ class DefaultController extends Controller
 {
     public function greetAction(Request $request)
     {
-        return new JsonResponse('greetings stranger');
+        return new JsonResponse('Greetings, stranger');
     }
 }
