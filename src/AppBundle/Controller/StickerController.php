@@ -43,7 +43,6 @@ class StickerController extends Controller
         $serializer = $this->get('jms_serializer');
         $sticker = new Sticker();
 
-        //return new Response($serializer->serialize($request->getParameterBag(), 'json'));
         $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
         // $form->handleRequest($request);
         $form->submit($request->request->all());
@@ -57,7 +56,7 @@ class StickerController extends Controller
             $response = new JsonResponse(array(
                 'status' => 1,
                 'id' => $sticker->getId(),
-            );
+            ));
 
             return $response;
         } else {
