@@ -15,12 +15,15 @@ class DonationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('amount')
-            ->add('paypalTransactionId')
-            ->add('sticker')
-        ;
+            ->add('amount', 'float')
+            ->add('paypalTransactionId', 'text')
+            ->add('sticker', 'entity', array(
+                'class' => 'Acme\Bundle\Entity\Sticker',
+                'property' => 'id',
+                'multiple' => false
+        ));
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

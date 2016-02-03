@@ -40,7 +40,9 @@ class DonationController extends Controller
     {
         $donation = new Donation();
         $form = $this->createForm('AppBundle\Form\DonationType', $donation);
-        $form->handleRequest($request);
+        //$form->handleRequest($request);
+        $form->submit($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
