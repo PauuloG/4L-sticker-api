@@ -7,8 +7,3 @@ donation_new:
     path:     /new
     defaults: { _controller: "AppBundle:Donation:new" }
     methods:  [GET, POST]
-
-donation_edit:
-    path:     /printed/{id}
-    defaults: { _controller: "AppBundle:Donation:printed" }
-    methods:  [GET, POST]

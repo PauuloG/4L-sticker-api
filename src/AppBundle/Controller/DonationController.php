@@ -27,11 +27,9 @@ class DonationController extends Controller
 
         $donations = $em->getRepository('AppBundle:Donation')->findBy(['printed' => 0]);
 
-        $donations = $serializer->serialize($donations, 'json');
+        $data['donations'] = $donations;
 
-        $response =  new Response($donations);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        return $this->render('sticker.html.twig', $data);
 
     }
 
