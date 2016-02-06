@@ -73,12 +73,18 @@ fos_rest:
         default_format: json
 
 nelmio_cors:
-    paths:
-        '^/api/':
-            allow-origin: ['*']
-            allow-headers: ['Authorization', 'X-Requested-With', 'x-requested-with', 'Content-Type', 'Accept', 'Origin', 'X-Custom-Auth', 'X-AUTH-TOKEN']
-            allow-methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
+   defaults:
+      allow_credentials: true
+      allow_origin: ['*']
+      allow_headers: ['*']
+      allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
+      max_age: 3600
+   paths:
+    '^/':
+        allow_origin: ['*']
+        allow_headers: ['*']
+        allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
+        max_age: 3600
 
 knp_snappy:
     pdf:
