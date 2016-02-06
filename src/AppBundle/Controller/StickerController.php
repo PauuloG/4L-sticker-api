@@ -31,8 +31,6 @@ class StickerController extends Controller
 
         $response =  new Response($stickers);
         $response->headers->set('Content-Type', 'application/json');
-        // $response->headers->set('Access-Control-Allow-Origin', '*');
-        // $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
         return $response;
     }
 
@@ -46,7 +44,6 @@ class StickerController extends Controller
         $sticker = new Sticker();
 
         $form = $this->createForm('AppBundle\Form\StickerType', $sticker);
-        // $form->handleRequest($request);
         $form->submit($request->request->all());
 
         if ($form->isSubmitted() ) {//&& $form->isValid()
@@ -66,8 +63,6 @@ class StickerController extends Controller
             $response = new JsonResponse(array(
                 'status' => 0,
                 'errors' => $form->getErrorsAsString()));
-            // $response->headers->set('Access-Control-Allow-Origin', '*');
-            // $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
             return $response;
 
         }
@@ -75,8 +70,6 @@ class StickerController extends Controller
         $response = new JsonResponse(array(
             'status' => 2,
             'errors' => $form->getErrorsAsString()));
-        // $response->headers->set('Access-Control-Allow-Origin', '*');
-        // $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
         return $response;
 
     }
