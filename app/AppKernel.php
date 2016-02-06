@@ -18,8 +18,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
-            new Payum\Bundle\PayumBundle\PayumBundle()
+            new FOS\RestBundle\FOSRestBundle()
 
         );
 
@@ -29,6 +28,11 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
+
+    defined('CURL_SSLVERSION_DEFAULT') || define('CURL_SSLVERSION_DEFAULT', 0);
+    defined('CURL_SSLVERSION_TLSv1')   || define('CURL_SSLVERSION_TLSv1', 1);
+    defined('CURL_SSLVERSION_SSLv2')   || define('CURL_SSLVERSION_SSLv2', 2);
+    defined('CURL_SSLVERSION_SSLv3')   || define('CURL_SSLVERSION_SSLv3', 3);
 
         return $bundles;
     }
