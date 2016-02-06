@@ -73,9 +73,8 @@ fos_rest:
         default_format: json
 
 nelmio_cors:
-    paths:
-        '^/':
-            allow-origin: ['*']
+    defaults:
+        allow-origin: ['*']
             allow-headers: ['Authorization', 'X-Requested-With', 'Content-Type', 'Accept', 'Origin', 'X-Custom-Auth', 'X-AUTH-TOKEN']
             allow-methods: ['POST', 'PUT', 'GET', 'DELETE']
             max_age: 3600
