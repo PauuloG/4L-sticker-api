@@ -19,7 +19,9 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
-            new FOS\RestBundle\FOSRestBundle()
+            new FOS\RestBundle\FOSRestBundle(),
+            new Payum\Bundle\PayumBundle\PayumBundle()
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

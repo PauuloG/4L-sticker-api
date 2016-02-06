@@ -9,8 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Donation;
 use AppBundle\Form\DonationType;
-
-//bonnjour je suis sur la branche
+use Payum\Paypal\Ipn\Api;
 
 /**
  * Donation controller.
@@ -29,10 +28,10 @@ class DonationController extends Controller
 
         $donations = $em->getRepository('AppBundle:Donation')->findBy(['printed' => 0]);
 
-        // foreach ($donations as $donation) {
-        //     $donation->setPrinted(1);
-        //     $em->persist($donation);
-        // }
+        foreach ($donations as $donation) {
+            $donation->setPrinted(1);
+            $em->persist($donation);
+        }
 
         $data['containers'] = [];
 
@@ -48,18 +47,9 @@ class DonationController extends Controller
 
         }
 
-        // $em->flush();
+        $em->flush();
 
         $html = $this->renderView('sticker.html.twig', $data);
-
-        // return new Response(
-        //     $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-        //     200,
-        //     array(
-        //         'Content-Type'          => 'application/pdf',
-        //         'Content-Disposition'   => 'attachment; filename="file.pdf"',
-        //     )
-        // );
 
         return $this->render('sticker.html.twig', $data);
 
@@ -73,6 +63,18 @@ class DonationController extends Controller
     {
         $serializer = $this->get('jms_serializer');
         $donation = new Donation();
+
+
+
+        $api = new Api(array(
+            'sandbox' => true
+        ));
+
+        if (Api::NOTIFY_VERIFIED === $api->notifyValidate($request->request->all())) {
+            return new JsonResponse('ok le check');
+        } else {
+            return new JsonResponse('pas trop ok le check');
+        }
 
         $form = $this->createForm('AppBundle\Form\DonationType', $donation);
         $form->submit($request->request->all());
