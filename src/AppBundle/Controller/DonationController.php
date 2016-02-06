@@ -62,6 +62,7 @@ class DonationController extends Controller
     public function newAction(Request $request)
     {
         $serializer = $this->get('jms_serializer');
+        $em = $this->getDoctrine()->getManager();
         $donation = new Donation();
 
         // STEP 1: Read POST data
@@ -138,9 +139,19 @@ class DonationController extends Controller
             $payer_email = $_POST['payer_email'];
             $custom = $_POST['custom'];
 
-            return new JsonResponse(array(
-                'status' => 1,
-                'custom' => $custom));
+            $sticker = $this->getDoctrine->getRepository('AppBundle:Sticker')->findOneById($custom);
+
+            if(!empty($sticker)){
+                $donation->setSticker($custom);
+                $donation->setAmount($payment_amount);
+                $donation->setPaypalTransactionId($payer_email);
+                $em->persist($donation);
+                $em->flush();
+            } else {
+                return new JsonResponse(array(
+                    'status' => 0,
+                    'custom' => 'No Sticker'));
+            }
 
         } else if (strcmp ($res, "INVALID") == 0) {
             return new JsonResponse(array(
