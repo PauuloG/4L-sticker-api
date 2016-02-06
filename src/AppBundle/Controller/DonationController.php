@@ -125,6 +125,14 @@ class DonationController extends Controller
             // check that payment_amount/payment_currency are correct
             // process payment
 
+            $message = \Swift_Message::newInstance()
+                ->setContentType("text/html")
+                ->setSubject('IPN vérifié')
+                ->setFrom('paulgabriel7@gmail')
+                ->setTo($invite->getEmail())
+                ->setBody('L IPN a été vérifié ');
+            $this->get('mailer')->send($message);
+
             // assign posted variables to local variables
             $item_name = $_POST['item_name'];
             $item_number = $_POST['item_number'];
@@ -140,6 +148,7 @@ class DonationController extends Controller
             $custom = $_POST['custom'];
 
             $sticker = $this->getDoctrine->getRepository('AppBundle:Sticker')->findOneById($custom);
+
 
             if(!empty($sticker)){
                 $donation->setSticker($custom);
