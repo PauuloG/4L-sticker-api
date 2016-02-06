@@ -1,10 +1,10 @@
 app_sticker:
     resource: "@AppBundle/Resources/config/routing/sticker.yml"
-    prefix:   /sticker
+    prefix:   /api/sticker
 
 app_donation:
     resource: "@AppBundle/Resources/config/routing/donation.yml"
-    prefix:   /donation
+    prefix:   /api/donation
 
 root :
     path : /
