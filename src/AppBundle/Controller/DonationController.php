@@ -114,7 +114,7 @@ class DonationController extends Controller
         $response->headers->set('Access-Control-Allow-Origin', '*');
         $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
 
-        return $response
+        return $response;
     }
 
 }
