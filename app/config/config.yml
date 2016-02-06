@@ -89,7 +89,8 @@ nelmio_cors:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     xvfb-run --auto-servernum -screen 0 1280x1024x24 wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+        binary:     /usr/local/bin/wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+        #binary:     xvfb-run --auto-servernum -screen 0 1280x1024x24 wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
         options:    []
     image:
         enabled:    true

@@ -32,20 +32,32 @@ class DonationController extends Controller
         //     $em->persist($donation);
         // }
 
-        // $em->flush();
+        $data['containers'] = [];
 
-        $data['donations'] = $donations;
+        $c = 0;
+
+        for ($i=0; $i < count($donations) ; $i++) {
+
+            if( !($i % 6) ){
+                $c +=1;
+            }
+
+            $data['containers'][$c][] = $donations[$i] ;
+
+        }
+
+        // $em->flush();
 
         $html = $this->renderView('sticker.html.twig', $data);
 
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"',
-            )
-        );
+        // return new Response(
+        //     $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+        //     200,
+        //     array(
+        //         'Content-Type'          => 'application/pdf',
+        //         'Content-Disposition'   => 'attachment; filename="file.pdf"',
+        //     )
+        // );
 
         return $this->render('sticker.html.twig', $data);
 
