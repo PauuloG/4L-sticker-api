@@ -77,7 +77,8 @@ class DonationController extends Controller
                 'status' => 1,
                 'donation' => $donation), 'json'));
             $response->headers->set('Content-Type', 'application/json');
-
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
             return $response;
         } else {
 
@@ -91,6 +92,8 @@ class DonationController extends Controller
         $response = new JsonResponse(array(
             'status' => 2,
             'errors' => $form->getErrorsAsString()));
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
         return $response;
     }
 
@@ -107,7 +110,11 @@ class DonationController extends Controller
         $em->persist($donation);
         $em->flush();
 
-        return new JsonResponse(array('status' => 1));
+        $response = new JsonResponse(array('status' => 1));
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET,POST,PUT');
+
+        return $response
     }
 
 }
