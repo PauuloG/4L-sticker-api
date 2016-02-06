@@ -49,7 +49,7 @@ class DonationController extends Controller
         //     )
         // );
 
-        return $this->render('default/index.html.twig', $data);
+        return $this->render('sticker.html.twig', $data);
 
     }
 
