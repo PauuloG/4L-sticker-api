@@ -27,9 +27,27 @@ class DonationController extends Controller
 
         $donations = $em->getRepository('AppBundle:Donation')->findBy(['printed' => 0]);
 
+        // foreach ($donations as $donation) {
+        //     $donation->setPrinted(1);
+        //     $em->persist($donation);
+        // }
+
+        // $em->flush();
+
         $data['donations'] = $donations;
 
-        return $this->render('sticker.html.twig', $data);
+        $html = $this->renderView('sticker.html.twig', $data);
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"',
+                'page-width' => '148mm',
+                'page-length' => '210mm'
+            )
+        );
 
     }
 

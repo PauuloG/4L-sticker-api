@@ -72,19 +72,29 @@ fos_rest:
     routing_loader:
         default_format: json
 
-# nelmio_cors:
-#     defaults:
-#         allow_credentials: false
-#         allow_origin: []
-#         allow_headers: []
-#         allow_methods: []
-#         expose_headers: []
-#         max_age: 0
-#         hosts: []
-#         origin_regex: false
-#     paths:
-#         '^/':
-#             allow_origin: ['*']
-#             allow_headers: ['X-Custom-Auth']
-#             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
-#             max_age: 3600
+nelmio_cors:
+    defaults:
+        allow_credentials: false
+        allow_origin: []
+        allow_headers: []
+        allow_methods: []
+        expose_headers: []
+        max_age: 0
+        hosts: []
+        origin_regex: false
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: ['X-Custom-Auth']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            max_age: 3600
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
+        options:    []
