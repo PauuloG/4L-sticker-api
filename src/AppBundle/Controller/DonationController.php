@@ -93,15 +93,15 @@ class DonationController extends Controller
 
         // STEP 2: Post IPN data back to paypal to validate
 
-        $ch = curl_init('https://www.paypal.com/cgi-bin/webscr'); // change to [...]sandbox.paypal[...] when using sandbox to test
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
+        $ch = \curl_init('https://www.paypal.com/cgi-bin/webscr'); // change to [...]sandbox.paypal[...] when using sandbox to test
+        \curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        \curl_setopt($ch, CURLOPT_POST, 1);
+        \curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        \curl_setopt($ch, CURLOPT_POSTFIELDS, $req);
+        \curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+        \curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        \curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
+        \curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
 
         // In wamp like environments that do not come bundled with root authority certificates,
         // please download 'cacert.pem' from "http://curl.haxx.se/docs/caextract.html" and set the directory path
@@ -112,7 +112,7 @@ class DonationController extends Controller
             curl_close($ch);
             exit;
         }
-        curl_close($ch);
+        \curl_close($ch);
 
 
         // STEP 3: Inspect IPN validation result and act accordingly
