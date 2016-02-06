@@ -75,9 +75,9 @@ fos_rest:
 nelmio_cors:
     defaults:
         allow-origin: ['*']
-            allow-headers: ['Authorization', 'X-Requested-With', 'Content-Type', 'Accept', 'Origin', 'X-Custom-Auth', 'X-AUTH-TOKEN']
-            allow-methods: ['POST', 'PUT', 'GET', 'DELETE']
-            max_age: 3600
+        allow-headers: ['Authorization', 'X-Requested-With', 'Content-Type', 'Accept', 'Origin', 'X-Custom-Auth', 'X-AUTH-TOKEN']
+        allow-methods: ['POST', 'PUT', 'GET', 'DELETE']
+        max_age: 3600
 
 knp_snappy:
     pdf:
