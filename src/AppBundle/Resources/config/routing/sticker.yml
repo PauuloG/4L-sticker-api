@@ -1,9 +1,9 @@
 sticker_index:
     path:     /
     defaults: { _controller: "AppBundle:Sticker:index" }
-    methods:  GET
+    methods:  [GET, OPTIONS]
 
 sticker_new:
     path:     /new
     defaults: { _controller: "AppBundle:Sticker:new" }
-    methods:  [GET, POST]
+    methods:  [GET, POST, OPTIONS]

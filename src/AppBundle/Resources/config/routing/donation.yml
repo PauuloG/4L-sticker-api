@@ -1,9 +1,9 @@
 donation_index:
     path:     /
     defaults: { _controller: "AppBundle:Donation:index" }
-    methods:  GET
+    methods:  [GET, OPTIONS]
 
 donation_new:
     path:     /new
     defaults: { _controller: "AppBundle:Donation:new" }
-    methods:  [GET, POST]
+    methods:  [GET, POST, OPTIONS]
