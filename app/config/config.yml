@@ -86,13 +86,10 @@ nelmio_cors:
         allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
         max_age: 3600
 
-knp_snappy:
-    pdf:
-        enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
-        #binary:     xvfb-run --auto-servernum -screen 0 1280x1024x24 wkhtmltopdf #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\"" for Windows users
-        options:    []
-    image:
-        enabled:    true
-        binary:     /usr/bin/wkhtmltoimage #"\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\"" for Windows users
-        options:    []
+payum:
+    security:
+        token_storage:
+            AppBundle\Entity\PaymentToken: { doctrine: orm }
+
+    storages:
+        AppBundle\Entity\PaymentDetails: { doctrine: orm }

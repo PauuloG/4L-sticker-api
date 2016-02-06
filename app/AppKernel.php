@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
-            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Payum\Bundle\PayumBundle\PayumBundle()
 
