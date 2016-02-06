@@ -15,25 +15,27 @@
 box-sizing: border-box;}
 
 body {
-
-    width:14.8cm;
-    height:21cm;
+    position:relative;
+    width:21cm;
+    height:29.7cm;
     margin:0;
     overflow:hidden;
 
 }
 
 .container {
-    /*position:absolute;*/
+    position:absolute;
+    right: 0;
+    bottom: 0;
     overflow:hidden;
     padding:9px;
     margin-top:10px;
     width:21cm;
     height:14.8cm;
-    -webkit-transform: rotate(90deg) translateX(-560px) translateY(10px);
-    -webkit-transform-origin: 0 100%;
-    transform: rotate(90deg) translateX(-560px) translateY(10px);
-    transform-origin: 0 100%;
+    -webkit-transform: rotate(90deg) translateY(100%);
+    -webkit-transform-origin: 100% 100%;
+    transform: rotate(90deg) translateY(100%);
+    transform-origin: 100% 100%;
 }
 
 #sticker-custom {
