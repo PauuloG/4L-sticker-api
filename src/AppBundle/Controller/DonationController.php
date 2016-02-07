@@ -71,38 +71,104 @@ class DonationController extends Controller
      */
     public function newAction(Request $request)
     {
-        $serializer = $this->get('jms_serializer');
-        $donation = new Donation();
 
-        $form = $this->createForm('AppBundle\Form\DonationType', $donation);
-        $form->submit($request->request->all());
+        $post = $request->request->all();
+        $logger = $this->get('logger');
+        $em = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() ) {//&& $form->isValid()
-            $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($donation);
-            $em->flush();
-
-            $response = new Response($serializer->serialize(array(
-                'status' => 1,
-                'donation' => $donation), 'json'));
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
+        $email_account = "paulgabriel7-facilitator-1@gmail.com";
+        $req = 'cmd=_notify-validate';
+        foreach ($request->request->all() as $key => $value) {
+            $value = urlencode(stripslashes($value));
+            $req .= "&$key=$value";
+        }
+        $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
+        $header .= "Host: www.sandbox.paypal.com\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
+        $fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
+        $item_name = $post['item_name'];
+        $item_number = $post['item_number'];
+        $payment_status = $post['payment_status'];
+        $payment_amount = $post['mc_gross'];
+        $payment_currency = $post['mc_currency'];
+        $txn_id = $post['txn_id'];
+        $receiver_email = $post['receiver_email'];
+        $payer_email = $post['payer_email'];
+        parse_str($post['custom'],$custom);
+        if (!$fp) {
         } else {
+        fputs ($fp, $header . $req);
+        while (!feof($fp)) {
+            $res = fgets ($fp, 1024);
+            if (strcmp ($res, "VERIFIED") == 0) {
+                // vérifier que payment_status a la valeur Completed
+                if ( $payment_status == "Completed") {
+                       if ( $email_account == $receiver_email) {
+                            if($payment_amount >= 3){
+                                $donation = new Donation();
 
-            $response = new JsonResponse(array(
-                'status' => 0,
-                'errors' => $form->getErrorsAsString()));
-            return $response;
+                                $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($custom);
 
+                                $donation->setAmount($payment_amount);
+                                $donation->setSticker($sticker);
+
+                                $em->persist($donation);
+                                $em->flush();
+
+                                $logger->info('Donation recorded');
+
+                                return new JsonResponse(array('status' => 1));
+
+                            }
+                       }
+                }
+                else {
+                    $logger->err('Not Valid amount : '.$payment_amount);
+                    return new JsonResponse(array('status' => 0, 'error' => 'Inferior 3'));
+                }
+                exit();
+           }
+            else if (strcmp ($res, "INVALID") == 0) {
+                $logger->err('Invlid IPN');
+                return new JsonResponse(array('status' => 0, 'error' => 'Not Valid'));
+            }
+        }
+        fclose ($fp);
         }
 
-        $response = new JsonResponse(array(
-            'status' => 2,
-            'errors' => $form->getErrorsAsString()));
+        // $serializer = $this->get('jms_serializer');
+        // $donation = new Donation();
 
-        return $response;
+        // $form = $this->createForm('AppBundle\Form\DonationType', $donation);
+        // $form->submit($request->request->all());
+
+        // if ($form->isSubmitted() ) {//&& $form->isValid()
+        //     $data = $form->getData();
+        //     $em = $this->getDoctrine()->getManager();
+        //     $em->persist($donation);
+        //     $em->flush();
+
+        //     $response = new Response($serializer->serialize(array(
+        //         'status' => 1,
+        //         'donation' => $donation), 'json'));
+        //     $response->headers->set('Content-Type', 'application/json');
+
+        //     return $response;
+        // } else {
+
+        //     $response = new JsonResponse(array(
+        //         'status' => 0,
+        //         'errors' => $form->getErrorsAsString()));
+        //     return $response;
+
+        // }
+
+        // $response = new JsonResponse(array(
+        //     'status' => 2,
+        //     'errors' => $form->getErrorsAsString()));
+
+        // return $response;
     }
 
     /**
