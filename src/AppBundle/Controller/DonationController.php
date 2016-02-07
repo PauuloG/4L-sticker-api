@@ -71,7 +71,7 @@ class DonationController extends Controller
 
         $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['transaction_subject']);
 
-        $donation->setAmount($payment_amount);
+        $donation->setAmount(5);
         $donation->setSticker($sticker);
         $donation->setPaypalTransactionId($post['ipn_track_id']);
 
