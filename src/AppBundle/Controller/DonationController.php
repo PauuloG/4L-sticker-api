@@ -69,7 +69,7 @@ class DonationController extends Controller
             ->setContentType("text/html")
             ->setSubject('IPN tapé')
             ->setFrom('paulgabriel7@gmail')
-            ->setTo($invite->getEmail())
+            ->setTo('paulgabriel7@gmail.com')
             ->setBody('L IPN hook a été tapé ');
         $this->get('mailer')->send($message);
 
@@ -137,7 +137,7 @@ class DonationController extends Controller
                 ->setContentType("text/html")
                 ->setSubject('IPN vérifié')
                 ->setFrom('paulgabriel7@gmail')
-                ->setTo($invite->getEmail())
+                ->setTo('paulgabriel7@gmail.com')
                 ->setBody('L IPN a été vérifié ');
             $this->get('mailer')->send($message);
 
@@ -175,7 +175,7 @@ class DonationController extends Controller
                 ->setContentType("text/html")
                 ->setSubject('IPN refusé')
                 ->setFrom('paulgabriel7@gmail')
-                ->setTo($invite->getEmail())
+                ->setTo('paulgabriel7@gmail.com')
                 ->setBody('L IPN a été refusé ');
             $this->get('mailer')->send($message);
             return new JsonResponse(array(
