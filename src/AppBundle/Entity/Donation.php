@@ -53,7 +53,6 @@ class Donation
     {
         $this->setCreationDate();
         $this->setPrinted(0);
-        $this->setPaypalTransactionId('none');
     }
 
     /**
