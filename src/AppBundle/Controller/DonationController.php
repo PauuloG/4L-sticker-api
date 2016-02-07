@@ -34,6 +34,8 @@ class DonationController extends Controller
             $em->persist($donation);
         }
 
+        $em->flush();
+
         $data['containers'] = [];
 
         $c = 0;
