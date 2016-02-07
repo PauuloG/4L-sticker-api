@@ -76,6 +76,10 @@ class DonationController extends Controller
         $logger = $this->get('logger');
         $em = $this->getDoctrine()->getManager();
 
+        foreach ($request->request->all() as $key => $value) {
+            $logger->info($key.' : '.$value);
+        }
+
         $email_account = "paulgabriel7-facilitator-1@gmail.com";
         $req = 'cmd=_notify-validate';
         foreach ($request->request->all() as $key => $value) {
@@ -83,7 +87,6 @@ class DonationController extends Controller
             $req .= "&$key=$value";
         }
         $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
-        $header .= "Host: www.sandbox.paypal.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
         $fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
@@ -130,45 +133,12 @@ class DonationController extends Controller
                 exit();
            }
             else if (strcmp ($res, "INVALID") == 0) {
-                $logger->err('Invlid IPN');
+                $logger->err('Invalid IPN');
                 return new JsonResponse(array('status' => 0, 'error' => 'Not Valid'));
             }
         }
         fclose ($fp);
         }
-
-        // $serializer = $this->get('jms_serializer');
-        // $donation = new Donation();
-
-        // $form = $this->createForm('AppBundle\Form\DonationType', $donation);
-        // $form->submit($request->request->all());
-
-        // if ($form->isSubmitted() ) {//&& $form->isValid()
-        //     $data = $form->getData();
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($donation);
-        //     $em->flush();
-
-        //     $response = new Response($serializer->serialize(array(
-        //         'status' => 1,
-        //         'donation' => $donation), 'json'));
-        //     $response->headers->set('Content-Type', 'application/json');
-
-        //     return $response;
-        // } else {
-
-        //     $response = new JsonResponse(array(
-        //         'status' => 0,
-        //         'errors' => $form->getErrorsAsString()));
-        //     return $response;
-
-        // }
-
-        // $response = new JsonResponse(array(
-        //     'status' => 2,
-        //     'errors' => $form->getErrorsAsString()));
-
-        // return $response;
     }
 
     /**
