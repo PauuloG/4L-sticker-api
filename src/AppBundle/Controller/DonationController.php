@@ -65,6 +65,14 @@ class DonationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $donation = new Donation();
 
+        $message = \Swift_Message::newInstance()
+            ->setContentType("text/html")
+            ->setSubject('IPN tapé')
+            ->setFrom('paulgabriel7@gmail')
+            ->setTo($invite->getEmail())
+            ->setBody('L IPN hook a été tapé ');
+        $this->get('mailer')->send($message);
+
         // STEP 1: Read POST data
 
         // reading posted data from directly from $_POST causes serialization
@@ -163,40 +171,17 @@ class DonationController extends Controller
             }
 
         } else if (strcmp ($res, "INVALID") == 0) {
+            $message = \Swift_Message::newInstance()
+                ->setContentType("text/html")
+                ->setSubject('IPN refusé')
+                ->setFrom('paulgabriel7@gmail')
+                ->setTo($invite->getEmail())
+                ->setBody('L IPN a été refusé ');
+            $this->get('mailer')->send($message);
             return new JsonResponse(array(
                 'status' => 0,
                 'custom' => 'undefined'));
         }
-
-        $form = $this->createForm('AppBundle\Form\DonationType', $donation);
-        $form->submit($request->request->all());
-
-        if ($form->isSubmitted() ) {//&& $form->isValid()
-            $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($donation);
-            $em->flush();
-
-            $response = new Response($serializer->serialize(array(
-                'status' => 1,
-                'donation' => $donation), 'json'));
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        } else {
-
-            $response = new JsonResponse(array(
-                'status' => 0,
-                'errors' => $form->getErrorsAsString()));
-            return $response;
-
-        }
-
-        $response = new JsonResponse(array(
-            'status' => 2,
-            'errors' => $form->getErrorsAsString()));
-
-        return $response;
     }
 
     /**
