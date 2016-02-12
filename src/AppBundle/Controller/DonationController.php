@@ -67,9 +67,17 @@ class DonationController extends Controller
             'sandbox' => true
         ));
 
+        foreach ($request->request->all() as $key => $value) {
+            $logger->info($key.' : '.$value);
+        }
+
         if (Api::NOTIFY_VERIFIED === $api->notifyValidate($_POST)) {
-            echo 'It is valid paypal notification. Let\'s do some additional checks';
             $logger->info('valid ipn');
+
+            // $donation = new Donation();
+
+            // $sticker = $em->getRepository('AppBundle:Sticker')->findOneById()
+
             return new JsonResponse(array('status' => 0, 'notification' => 'Valid IPN'));
         }
         else {
