@@ -11,9 +11,9 @@ People are invited to customize a little sticker on the website, and can make a 
 The donation is made with Paypal, then the server processes the donation and sends it to the mobile client which is used by the car occupants. Each day at night camp, they print the stickers of the day and stick them on the car.
 
 ### Limitations
-This project was made in two weeks by a team of 5 people. 
+This project was made in two weeks by a team of 5 people.
 
-Our main limitation was the poor network quality expected during the race. 
+Our main limitation was the poor network quality expected during the race.
 
 To avoid long loading times or no loading at all, we decided to minmize the size of the assets, in order for the racers to be able to access the stickers to be printed.
 
@@ -27,7 +27,7 @@ The server-side of this application runs on Symfony 2.8.*; To install the projec
 ```
 composer install
 ```
-Then 
+Then
 
 ```
 php app/console doctrine:schema:create
@@ -35,8 +35,6 @@ php app/console doctrine:schema:create
 
 That's it, you're good to go!
 
-####To Complete
-+ Global Security could be improved, but restricted time didn't allow it. This is only a MVP, designed for testing.
 
 ####Credits
 **Benjamin Chareyron** - *Project Manager, Social Media Strategist*
