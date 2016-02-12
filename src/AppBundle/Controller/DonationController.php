@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Donation;
 use AppBundle\Form\DonationType;
+
 use Payum\Paypal\Ipn\Api;
 
 /**
@@ -49,8 +50,6 @@ class DonationController extends Controller
 
         }
 
-        // $em->flush();
-
         $html = $this->renderView('sticker.html.twig', $data);
 
         return $this->render('sticker.html.twig', $data);
@@ -70,11 +69,12 @@ class DonationController extends Controller
 
         if (Api::NOTIFY_VERIFIED === $api->notifyValidate($_POST)) {
             echo 'It is valid paypal notification. Let\'s do some additional checks';
-            $logget->info('valid ipn');
+            $logger->info('valid ipn');
+            return new JsonResponse(array('status' => 0, 'notification' => 'Valid IPN'));
         }
         else {
             $logger->info('invalid ipn');
-            return new JsonResponse(array('status' => 0, 'notification' => 'Not a valid IPN');
+            return new JsonResponse(array('status' => 0, 'notification' => 'Not a valid IPN'));
         }
 
     //     $post = $request->request->all();
