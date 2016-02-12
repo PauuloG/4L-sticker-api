@@ -75,18 +75,23 @@ class DonationController extends Controller
         }
 
         if (Api::NOTIFY_VERIFIED === $api->notifyValidate($_POST)) {
-            $logger->info('valid ipn');
+            if($post['mc_gross'] >= 3){
 
-            $donation = new Donation();
+                $logger->info('valid ipn');
 
-            $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['custom']);
+                $donation = new Donation();
 
-            $donation->setAmount($post['mc_gross']);
-            $donation->setSticker($sticker);
-            $donation->setPaypalTransactionId($post['verify_sign']);
+                $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['custom']);
 
-            $em->persist($donation);
-            $em->flush();
+                $donation->setAmount($post['mc_gross']);
+                $donation->setSticker($sticker);
+                $donation->setPaypalTransactionId($post['verify_sign']);
+
+                $em->persist($donation);
+                $em->flush();
+            } else {
+                return new JsonResponse(array('status' => 0, 'notification' => 'Valid IPN but invalid amount'));
+            }
 
             return new JsonResponse(array('status' => 0, 'notification' => 'Valid IPN'));
         }
