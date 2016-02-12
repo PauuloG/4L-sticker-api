@@ -91,3 +91,14 @@ payum:
     gateways:
         offline:
             offline: ~
+
+services:
+  paypal_logger:
+    class: Monolog\Logger
+    arguments: [my_info]
+    calls:
+        - [pushHandler, [@paypal_log_handler]]
+
+  paypal_log_handler:
+    class: Monolog\Handler\StreamHandler
+    arguments: [%kernel.root_dir%/logs/paypal.log, 100]

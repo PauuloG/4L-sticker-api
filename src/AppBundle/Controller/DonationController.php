@@ -62,7 +62,7 @@ class DonationController extends Controller
      */
     public function newAction(Request $request)
     {
-        $logger = $this->get('logger');
+        $logger = $this->get('paypal_logger');
         $api = new Api(array(
             'sandbox' => true
         ));
