@@ -82,6 +82,10 @@ nelmio_cors:
         allow_methods: ['POST', 'PUT', 'GET', 'DELETE','OPTIONS']
         max_age: 3600
 
+fos_rest:
+    routing_loader:
+        default_format: json
+
 payum:
     security:
         token_storage:

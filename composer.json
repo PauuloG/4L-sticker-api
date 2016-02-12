@@ -20,7 +20,8 @@
         "jms/serializer-bundle": "^1.1",
         "nelmio/cors-bundle": "^1.4",
         "payum/payum-bundle": "^1.0",
-        "payum/offline": "^1.1"
+        "payum/offline": "^1.1",
+        "friendsofsymfony/rest-bundle": "^1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

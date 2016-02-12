@@ -63,9 +63,12 @@ class DonationController extends Controller
     public function newAction(Request $request)
     {
         $logger = $this->get('paypal_logger');
+        $em = $this->getDoctrine()->getManager();
         $api = new Api(array(
             'sandbox' => true
         ));
+
+        $post = $request->request->all();
 
         foreach ($request->request->all() as $key => $value) {
             $logger->info($key.' : '.$value);
@@ -74,9 +77,16 @@ class DonationController extends Controller
         if (Api::NOTIFY_VERIFIED === $api->notifyValidate($_POST)) {
             $logger->info('valid ipn');
 
-            // $donation = new Donation();
+            $donation = new Donation();
 
-            // $sticker = $em->getRepository('AppBundle:Sticker')->findOneById()
+            $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['custom']);
+
+            $donation->setAmount(3);
+            $donation->setSticker($sticker);
+            $donation->setPaypalTransactionId($post['verify_sign']);
+
+            $em->persist($donation);
+            $em->flush();
 
             return new JsonResponse(array('status' => 0, 'notification' => 'Valid IPN'));
         }
@@ -84,28 +94,6 @@ class DonationController extends Controller
             $logger->info('invalid ipn');
             return new JsonResponse(array('status' => 0, 'notification' => 'Not a valid IPN'));
         }
-
-    //     $post = $request->request->all();
-    //     $logger = $this->get('logger');
-    //     $em = $this->getDoctrine()->getManager();
-       //
-    //     $donation = new Donation();
-       //
-    //     $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['transaction_subject']);
-       //
-    //     $donation->setAmount(5);
-    //     $donation->setSticker($sticker);
-    //     $donation->setPaypalTransactionId($post['ipn_track_id']);
-       //
-    //     $em->persist($donation);
-    //     $em->flush();
-       //
-    //     foreach ($request->request->all() as $key => $value) {
-    //         $logger->info($key.' : '.$value);
-    //     }
-    //     $logger->info('tapé');
-       //
-    //    $response = new JsonResponse(array('status' => 1));
     }
 
     /**
