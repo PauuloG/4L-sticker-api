@@ -9,8 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use AppBundle\Entity\Donation;
 use AppBundle\Form\DonationType;
-
-//bonnjour je suis sur la branche
+use Payum\Paypal\Ipn\Api;
 
 /**
  * Donation controller.
@@ -64,28 +63,41 @@ class DonationController extends Controller
      */
     public function newAction(Request $request)
     {
-
-        $post = $request->request->all();
         $logger = $this->get('logger');
-        $em = $this->getDoctrine()->getManager();
+        $api = new Api(array(
+            'sandbox' => true
+        ));
 
-        $donation = new Donation();
-
-        $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['transaction_subject']);
-
-        $donation->setAmount(5);
-        $donation->setSticker($sticker);
-        $donation->setPaypalTransactionId($post['ipn_track_id']);
-
-        $em->persist($donation);
-        $em->flush();
-
-        foreach ($request->request->all() as $key => $value) {
-            $logger->info($key.' : '.$value);
+        if (Api::NOTIFY_VERIFIED === $api->notifyValidate($_POST)) {
+            echo 'It is valid paypal notification. Let\'s do some additional checks';
+            $logget->info('valid ipn');
         }
-        $logger->info('tapé');
+        else {
+            $logger->info('invalid ipn');
+            return new JsonResponse(array('status' => 0, 'notification' => 'Not a valid IPN');
+        }
 
-       $response = new JsonResponse(array('status' => 1));
+    //     $post = $request->request->all();
+    //     $logger = $this->get('logger');
+    //     $em = $this->getDoctrine()->getManager();
+       //
+    //     $donation = new Donation();
+       //
+    //     $sticker = $em->getRepository('AppBundle:Sticker')->findOneById($post['transaction_subject']);
+       //
+    //     $donation->setAmount(5);
+    //     $donation->setSticker($sticker);
+    //     $donation->setPaypalTransactionId($post['ipn_track_id']);
+       //
+    //     $em->persist($donation);
+    //     $em->flush();
+       //
+    //     foreach ($request->request->all() as $key => $value) {
+    //         $logger->info($key.' : '.$value);
+    //     }
+    //     $logger->info('tapé');
+       //
+    //    $response = new JsonResponse(array('status' => 1));
     }
 
     /**
