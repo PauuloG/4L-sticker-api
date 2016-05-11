@@ -6,7 +6,7 @@ The goal is to raise money for a good cause, ["Les Enfants du Désert"](http://h
 
 Through this project, we aim at raising awareness as well as implicating people.
 
-People are invited to customize a little sticker on the website, and can make a donation to have it printed and put one of the 4L.
+People are invited to customize a little sticker on the website, and can make a donation to have it printed and put on the 4L.
 
 The donation is made with Paypal, then the server processes the donation and sends it to the mobile client which is used by the car occupants. Each day at night camp, they print the stickers of the day and stick them on the car.
 
@@ -34,6 +34,8 @@ php app/console doctrine:schema:create
 ```
 
 That's it, you're good to go!
+
+*Right now the project runs with a sandbox Paypal account*
 
 
 ####Credits
